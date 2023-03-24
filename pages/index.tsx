@@ -1,14 +1,16 @@
-import { PokemonList } from "@/types";
+import { PokemonListType } from "@/types";
 import useSWR from "swr";
+import styles from "@/styles/modal.module.css";
+import PokemonList from "./pokemonList";
 
 type pokemonResponse = {
   count: number;
   next: string;
   previous?: string;
-  results: PokemonList[];
+  results: PokemonListType[];
 };
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+export const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 const Pokemon = (): JSX.Element => {
   const { data, error, isLoading } = useSWR<pokemonResponse>(
@@ -17,8 +19,7 @@ const Pokemon = (): JSX.Element => {
   );
 
   const pokemon = data?.results;
-  if (data) {
-  }
+
   if (isLoading) {
     <div>Loading...</div>;
   }
@@ -28,9 +29,11 @@ const Pokemon = (): JSX.Element => {
   }
   return (
     <>
-      {pokemon?.map(({ name }: PokemonList) => (
-        <p key={`pkmn-${name}`}>{name}</p>
-      ))}
+      <div className={styles.container}>
+        {pokemon?.map(({ url }: PokemonListType) => (
+          <PokemonList key={`pkmn-${url}`} url={url} />
+        ))}
+      </div>
     </>
   );
 };
