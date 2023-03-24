@@ -7,7 +7,6 @@ import Modal from "./modal";
 
 const PokemonList = ({ url }: { url: string }) => {
   const { data, error, isLoading } = useSWR(url, fetcher);
-  console.log(data);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -29,12 +28,14 @@ const PokemonList = ({ url }: { url: string }) => {
   return (
     <>
       <div className={styles.card} onClick={openModal}>
-        <Image
-          src={data?.sprites?.front_default}
-          alt={data?.name}
-          width="96"
-          height="96"
-        />
+        <picture>
+          <img
+            src={data?.sprites?.front_default}
+            alt={data?.name}
+            width="96"
+            height="96"
+          />
+        </picture>
         <p>{data?.name}</p>
       </div>
       <Modal show={isOpen} data={data} closeModal={closeModal} />

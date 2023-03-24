@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { TypePokemon } from "@/types";
 import styles from "@/styles/modal.module.css";
 
@@ -16,12 +15,15 @@ const Modal = ({
   return show ? (
     <div className={styles.modal}>
       <div className="modal_body">
-        <Image
-          src={data?.sprites?.front_default}
-          alt={data?.name}
-          width="96"
-          height="96"
-        />
+        <picture>
+          <img
+            src={data?.sprites?.front_default}
+            alt={data?.name}
+            width="96"
+            height="96"
+          />
+        </picture>
+
         <div className={styles.description}>
           <p> Name : {data?.name}</p>
           <p> Height: {height} cm</p>
