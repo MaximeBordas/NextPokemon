@@ -7,6 +7,7 @@ import Modal from "./modal";
 
 const PokemonList = ({ url }: { url: string }) => {
   const { data, error, isLoading } = useSWR(url, fetcher);
+  console.log(data);
 
   const [isOpen, setIsOpen] = useState(false);
 

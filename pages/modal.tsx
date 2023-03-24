@@ -11,6 +11,8 @@ const Modal = ({
   data: any;
   closeModal: () => void;
 }) => {
+  const height = data?.height / 0.1;
+  const weight = data?.weight / 10;
   return show ? (
     <div className={styles.modal}>
       <div className="modal_body">
@@ -20,14 +22,17 @@ const Modal = ({
           width="96"
           height="96"
         />
-        <p>{data?.name}</p>
-        <p>{data?.height}</p>
-        <p>{data?.weight}</p>
-        {data?.types.map(({ type }: TypePokemon) => (
-          <p key={`pkmn-type-${type.name}`}>{type.name}</p>
-        ))}
+        <div className={styles.description}>
+          <p> Name : {data?.name}</p>
+          <p> Height: {height} cm</p>
+          <p>Weight: {weight} Kg</p>
+          <p>Type :</p>
+          {data?.types.map(({ type }: TypePokemon) => (
+            <p key={`pkmn-type-${type.name}`}>{type.name}</p>
+          ))}
+          <button onClick={() => closeModal()}>Close</button>
+        </div>
       </div>
-      <button onClick={() => closeModal()}>Close</button>
     </div>
   ) : null;
 };
